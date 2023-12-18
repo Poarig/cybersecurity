@@ -1,0 +1,47 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ test.name }}{% endblock %}
+
+{% block content %}
+    <div>
+        <h5>Результаты</h5>
+        <h5>{{ test }}</h5>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col" >Показатели</th>
+                        <th scope="col" >Результаты</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Всего вопросов в тесте</td>
+                        <td>{{ number }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Правильные ответы</td>
+                        <td>{{ correct }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Неправильные ответы</td>
+                        <td>{{ wrong }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Пропущено вопросов</td>
+                        <td>{{ skipped }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div>
+                {{c}}
+                {{w}}
+            </div>
+        </div>
+    </div>
+{% endblock %}

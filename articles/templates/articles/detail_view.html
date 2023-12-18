@@ -1,0 +1,15 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ article.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ article.name }}</h1>
+    <p>{{ article.text }}</p>
+    <p>{{ article.date }}</p>
+    <ul>
+        {% for i in tests %}
+            <li><a href="{% url 'display_test' i.id %}">{{ i }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

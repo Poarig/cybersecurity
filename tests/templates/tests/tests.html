@@ -1,0 +1,13 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Тесты{% endblock %}
+
+{% block content %}
+    <h1>Тесты</h1>
+    {% for i in tests%}
+        <div>
+            <h1><a href="{% url 'display_test' i.id %}">{{ i.name }}</a></h1>
+            <p>текст</p>
+        </div>
+    {% endfor %}
+{% endblock %}

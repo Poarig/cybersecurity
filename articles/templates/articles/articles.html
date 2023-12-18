@@ -1,0 +1,13 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Статьи{% endblock %}
+
+{% block content %}
+    <h1>Статьи</h1>
+    {% for i in articles%}
+        <div>
+            <h1><a href="{% url 'article_detail' i.id %}">{{ i.name }}</a></h1>
+            <p>текст</p>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ test.name }}{% endblock %}
+
+{% block content %}
+    <div>
+        {{ question.text }}
+    </div>
+
+    <div>
+        <form id="question-form"
+            action="{% url 'grade_question' test.id question.id %}"
+            method="post">
+            {% csrf_token %}
+
+            {% if question.has_several_solutions %}
+                <div>Здесь несколько правильных ответов.</div>
+
+                {% for answer in question.answers_set.all %}
+                    <div>
+                        <input type="checkbox"
+                            name="answer"
+                            id="answer{{ forloop.counter }}"
+                            value="{{ answer.id }}"/>
+                        <label for="answer{{ forloop.counter }}">{{ answer.text }}</label>
+                    </div>
+                {% endfor %}
+
+            {% else %}
+                <div>Только один ответ здесь - правильный.</div>
+
+                {% for answer in question.answers_set.all %}
+                    <div class="form-check">
+                        <input type="radio"
+                            name="answer"
+                            id="answer{{ forloop.counter }}"
+                            value="{{ answer.id }}"/>
+                        <label for="answer{{ forloop.counter }}">{{ answer.text }}</label>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div>
+                <input type="submit"
+                    value="Ответить"/>
+            </div>
+        </form>
+
+        <div id="question-feedback"></div>
+    </div>
+
+    <div>
+        {% if next_question %}
+            <div>
+                <a href="{% url 'display_question' test.id next_question.id %}">
+                    <i>></i> Следующий вопрос</a>
+            </div>
+
+        {% else %}
+            <div>
+                Это последний вопрос теста. После ответа нажмите кнопку
+                <a href="{% url 'test_results' test.id %}">Посмотреть результаты</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        const form = document.getElementById("question-form");
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            fetch(form.action, {method:'post', body: new FormData(form)})
+                .then((response) => response.text())
+                .then(text => {
+                    document.getElementById("question-feedback").innerHTML = text;
+                });
+        });
+    </script>
+{% endblock %}

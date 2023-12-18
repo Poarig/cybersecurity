@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    </head>
+
+    <body>
+        <div class="main-headers">
+        </div>
+
+        <div class="content">
+            <hr/>
+
+            <div>
+                <nav>
+                    <table class="menu">
+                        <tr>
+                            <td><a href="{% url 'home' %}"><button>Главная страница</button></a></td>
+                            <td><a href="{% url 'articles' %}"><button>Статьи</button></a></td>
+                            <td><a href="{% url 'tests' %}"><button>Тесты</button></a></td>
+                        </tr>
+                    </table>
+                </nav>
+            </div>
+
+            <div>
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+
+        <footer>
+            <p>Сайт создан Подволоцким Аркадием и Муратовым Вячеславом в 2023 году</p>
+        </footer>
+    </body>
+</html>
